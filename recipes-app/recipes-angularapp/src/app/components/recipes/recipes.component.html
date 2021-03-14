@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="leftside">
+        <div class="container-item" *ngFor="let recipe of recipes | paginate: {itemsPerPage: 3, currentPage: p}; let i = index">
+            <h1 style="text-align: center;">{{recipe.name.toUpperCase()}}</h1>
+            <div style="margin-right: 40px; margin-top: 40px;">
+                <a href='https://postimages.org/' target='_blank' style="float: right;"><img src="{{recipe.photo}}" width="300" height="300"alt=''/></a>
+
+            </div>
+            <h4>Flavour: <i>{{recipe.flavour.charAt(0) + recipe.flavour.slice(1).toLowerCase()}}</i>, Type: <i>{{recipe.foodType.charAt(0) + recipe.foodType.slice(1).toLowerCase()}}</i></h4>
+            <p>Ingredients: </p>
+            <ul *ngFor="let ingredient of recipe.ingredients" style="list-style-type: none;">
+                <li>{{ingredient.product}}: {{ingredient.quantity}}</li>
+            </ul>
+            <p>Preparation time: {{recipe.prepTime}} minutes</p>
+            <p>Preparation: <br> {{recipe.preparation}}</p>
+            <div *ngFor="let like of likes">
+               <div *ngIf="i+1 === like.id">
+                <label>Likes: {{likes[i+((p-1)*3)].likes}} </label>
+                <button mat-button (click)="onClickLike(i+((p-1)*3))" [ngClass]="{'like': likesCheck[i+((p-1)*3)]}" ><mat-icon>thumb_up</mat-icon></button>
+                <label>Dislikes: {{likes[i+((p-1)*3)].dislikes}} </label>
+                <button mat-button (click)="onClickDislike(i+((p-1)*3))" [ngClass]="{'dislike': dislikesCheck[i+((p-1)*3)]}"><mat-icon>thumb_down</mat-icon></button>
+               </div>
+            </div>
+        </div>
+        <div id="pagination">
+            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+        </div>
+    </div>
+    
+    <div class="rightside">
+        <div class="container-item">
+            <h2>About me!</h2>
+            <div class="content">
+                <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/xdpF6Txx/aj-HYhsuv-400x400.jpg' alt='me' width="100" height="100"/></a>
+                <p>I’m Julia and I have finally decided to open this baking blog, where I will be sharing easy, sweet and mouth-watering recipes 🍩🍪🥧 Hope you enjoy and do them at home 🥰</p>
+            </div>
+        </div>
+        <div class="container-item" style="height: 200px;">
+            <h2>Popular recipe</h2>
+            <div style="float: left; margin-right: 10px;">
+                <a href='https://postimages.org/' target='_blank'><img src="{{popularRecipe.photo}}" alt='' width="100" height="100"/></a>
+            </div>
+            <h3><strong>{{popularRecipe.name}}</strong></h3>
+            <p>Look it up in the searcher! It's so easy to make and you will love it!</p>
+        </div>
+    </div>
+</div>
+

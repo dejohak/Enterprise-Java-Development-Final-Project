@@ -1,0 +1,10 @@
+.nav {
+    background-color: rgb(217, 255, 179);
+    height: 49px;
+}
+
+.nav-link.active {
+    height: 42px;
+    color: #3a3a3a;
+    border: none;
+}

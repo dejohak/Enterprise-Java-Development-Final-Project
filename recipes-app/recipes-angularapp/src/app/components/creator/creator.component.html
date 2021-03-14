@@ -1,0 +1,100 @@
+<div style="padding: 1% 23%">
+    <h1>Create a recipe</h1>
+    <h4>Add your own recipe to the blog. Just write down in the following form all the details: title, ingredients, preparation...</h4>
+</div>
+
+<div class="form-container">
+    <form [formGroup]="form1">
+        <mat-form-field appearance="legacy" style="width: 100%;">
+            <mat-label>Title of the recipe</mat-label>
+            <input matInput [(ngModel)]="name" type="text" name="name" formControlName="name">
+        </mat-form-field>
+        
+        <mat-form-field appearance="legacy" style="width: 50%; margin-right: 10px;">
+            <mat-label>Flavour</mat-label>
+            <mat-select name="flavour" formControlName="flavour" [(value)]="flavour">
+                <mat-option value="savory">Savory</mat-option>
+                <mat-option value="sweet">Sweet</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="flavour === 'savory'" appearance="legacy" style="width: 40%;">
+            <mat-label>Baked good</mat-label>
+            <mat-select name="bakedGood" formControlName="bakedGood" [(value)]="bakedGood">
+                <mat-option value="toasts">Toasts</mat-option>
+                <mat-option value="bread">Bread</mat-option>
+                <mat-option value="pizza">Pizza</mat-option>
+                <mat-option value="sandwich">Sandwich</mat-option>
+                <mat-option value="other">Other</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="flavour === 'sweet'" appearance="legacy" style="width: 40%;">
+            <mat-label>Baked good</mat-label>
+            <mat-select name="bakedGood" formControlName="bakedGood" [(value)]="bakedGood">
+                <mat-option value="cake">Cake</mat-option>
+                <mat-option value="cupcakes">Cupcakes</mat-option>
+                <mat-option value="biscuits">Biscuits</mat-option>
+                <mat-option value="pancakes">Pancakes</mat-option>
+                <mat-option value="brownie">Brownie</mat-option>
+                <mat-option value="tart">Tart</mat-option>
+                <mat-option value="doughnuts">Doughnuts</mat-option>
+                <mat-option value="other">Other</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Number of ingredients</mat-label>
+            <mat-select name="numIngredients" formControlName="numIngredients" [(value)]="numIngredients" (selectionChange)="onSelect()">
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="6">6</mat-option>
+                <mat-option value="7">7</mat-option>
+                <mat-option value="8">8</mat-option>
+                <mat-option value="9">9</mat-option>
+                <mat-option value="10">10</mat-option>
+                <mat-option value="11">11</mat-option>
+                <mat-option value="12">12</mat-option>
+                <mat-option value="13">13</mat-option>
+                <mat-option value="14">14</mat-option>
+                <mat-option value="15">15</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Preparation time</mat-label>
+            <input matInput [(ngModel)]="prepTime" type="number" name="prepTime" formControlName="prepTime">
+            <mat-hint>Preparation time is defined in minutes. </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 170%; margin-top: 30px;">
+            <mat-label>Describe the preparation</mat-label>
+            <textarea matInput [(ngModel)]="preparation" type="text" name="preparation" formControlName="preparation"></textarea>
+            <mat-hint>Give a brief description of every step taken in the preparation of the recipe.</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="legacy" style="width: 100%;">
+            <mat-label>Photo link</mat-label>
+            <input matInput [(ngModel)]="photo" type="url" name="photo" formControlName="photo">
+            <mat-hint>Write the recipe's photo link if you have any. Not a mandatory field.</mat-hint>
+        </mat-form-field>
+
+    </form>
+</div>
+<div class="ingredients">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form2">
+        <div [hidden]="ingCheck">
+            <p *ngIf="ingredients.length > 0">Write the name of each ingredient and specify its quantity (table spoons, cups...):</p>
+            <div *ngFor="let ingredient of ingredients; let i = index">
+                <mat-form-field  appearance="legacy" style="margin-right: 5px;">
+                    <mat-label>Ingredient {{i+1}}</mat-label>
+                    <input matInput [(ngModel)]="product[i]" name="product" formControlName="product">
+                </mat-form-field> 
+                <mat-form-field appearance="legacy">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput [(ngModel)]="quantity[i]" name="quantity" formControlName="quantity">
+                </mat-form-field>
+            </div>
+            <button mat-stroked-button type="button" (click)="onClick()" [hidden]="numIngredients < 1">Add ingredients</button>
+        </div>
+        <button mat-stroked-button type="submit" [disabled]="form1.invalid || form2.invalid || !ingCheck" style="margin-top: 20px;">Add your recipe</button>
+    </form>
+</div>

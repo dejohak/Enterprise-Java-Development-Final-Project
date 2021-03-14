@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>Search a recipe</h1>
+    <p>You can search recipes by ingredient, baked good or flavour. Just select the searching option and type whatever you are looking for.</p>
+</div>
+
+<div class="form-container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <mat-form-field class="select" appearance="legacy">
+            <mat-label>Choose a searching option</mat-label>
+            <mat-select name="option" formControlName="option" [(value)]="selected">
+                <mat-option value="flavour">Flavour</mat-option>
+                <mat-option value="baked-good">Baked Good</mat-option>
+                <mat-option value="ingredient">Ingredient</mat-option>
+                <mat-option value="name">Name</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="input" appearance="fill">
+            <textarea matInput [(ngModel)]="search" type="text" name="search" formControlName="search"></textarea>
+        </mat-form-field>
+        <button mat-stroked-button type="submit" [disabled]="form.invalid">Search recipe</button>
+    </form>
+</div>
+
+<div class="recipes">
+    <div class="recipes-item" *ngFor="let recipe of recipes">
+        <h2>{{recipe.name}}</h2>
+        <div style="margin-right: 40px; margin-top: 40px;">
+            <a href='https://postimages.org/' target='_blank' style="float: right;"><img src="{{recipe.photo}}" width="300" height="300"alt=''/></a>
+        </div>
+        <h6>Flavour: <i>{{recipe.flavour.charAt(0) + recipe.flavour.slice(1).toLowerCase()}}</i>, Type: <i>{{recipe.foodType.charAt(0) + recipe.foodType.slice(1).toLowerCase()}}</i></h6>
+        <p>Ingredients: </p>
+        <ul *ngFor="let ingredient of recipe.ingredients" style="list-style-type: none;"><li>{{ingredient.product}}: {{ingredient.quantity}}</li></ul>
+        <p>Preparation time: {{recipe.prepTime}}</p>
+        <p>Preparation: <br> {{recipe.preparation}}</p>
+    </div>
+</div>
+<div *ngIf="recipes.length === 0 && submitted">
+    <h2 class="error">There are no recipes matching your search.</h2>
+</div>
+<div style="height: 30%;">
+
+</div>

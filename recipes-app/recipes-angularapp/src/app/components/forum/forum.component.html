@@ -1,0 +1,37 @@
+<div style="padding: 0 23%;">
+    <h1 style="padding-top: 8px;text-align: center;">Forum</h1>
+    <h2>{{posts.length}} Posts</h2>
+</div>
+
+<div class="column">
+    <div class="post" *ngFor="let post of posts | paginate: {itemsPerPage: 10, currentPage: p}; let i = index">
+        <h3>{{post.title}}</h3>
+        <p style="font-size: x-small;">Posted by: {{post.name}} on {{date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear()}}</p>
+        <p class="comment-box">{{post.comment}}</p>
+        
+    </div>
+    <div id="pagination">
+        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+    </div>
+</div>
+<div style="padding-left: 23%;">
+    <h2>Add a comment</h2>
+</div>
+
+    <div class="form-container">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+            <mat-form-field class="form-field" appearance="legacy">
+                <mat-label>Name</mat-label>
+                <input [(ngModel)]="name" matInput type="text" name="name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="form-field title" appearance="legacy">
+                <mat-label>Title</mat-label>
+                <input [(ngModel)]="title" matInput type="text" name="title" formControlName="title">
+            </mat-form-field>
+            <mat-form-field class="comment" appearance="fill">
+                <mat-label>Comment</mat-label>
+                <textarea [(ngModel)]="comment" matInput type="text" name="comment" formControlName="comment"></textarea>
+            </mat-form-field>
+            <button mat-stroked-button type="submit" [disabled]="form.invalid">Share your opinion</button>
+        </form>
+    </div>
