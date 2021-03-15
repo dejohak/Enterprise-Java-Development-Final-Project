@@ -6,7 +6,7 @@ In this project I tried to create a blog of recipes based on an Instagram Accoun
 At first, I wanted to add authentication using this tutorial: https://www.baeldung.com/rest-api-spring-oauth2-angular. But, unfortunately,
 I was not able to implement it. After many hours spent in this failed task, I had to re-scope the blog without the authentication of users.
 The initial idea was: Only 1 admin could create posts, and only authorised users could like/dislike posts and add comments to the forum. 
-Since I had to change this due to incapability of implement authentication, everyone can add comments or create posts.
+Since I had to change this due to my incapability to implement that authentication, everyone can add comments or create posts.
 
 Another problem I encountered was with the Like feature on the Forum. The Likes service was supposed to store the popularity of recipes and, also, 
 the popularity of comments in the forum. As of today: 14/3/2021, I haven't been able to implement, but hopefully I will do it in the following days.
